@@ -1,5 +1,12 @@
-const sync = require('@wdio/sync').default
-const nodeFetch = require('node-fetch')
+const sync = require('@wdio/sync').default;
+import nodeFetch from 'node-fetch';
+
+describe('trying to friend them', ()=>{
+beforeEach(()=>{
+  browser.url('https://www.reasonsecurity.com/');
+});
+
+
 
 test('a mocked api response', async () => {
   const expectedRes = {
@@ -17,23 +24,22 @@ test('a mocked api response', async () => {
     });
 });
 
-test('asynchronous WebdriverIO test', async () => {
-  await browser.url('https://webdriver.io')
-  await expect(browser).toHaveTitle('WebdriverIO', { containing: true })
-  const searchBar = await browser.$('#search_input_react')
-  await searchBar.click()
-  await browser.keys('click{enter}{ctrl} test test')
-  const suggestions = await browser.$('.aa-suggestions')
-  await suggestions.waitForExist()
+test('test', async () => {
+  await expect(browser).toHaveTitle('Jest', { containing: true });
+}); 
+
+test('test2', async () => {
+  await expect(browser).toHaveTitle('Reason security antivirus: free antivirus protection for your computer', { containing: true });
+}); 
+
+test('get link text', async ()=>{
+  const forHomeBtn = await browser.$(`data-asset_name="forHome"`);
+  const list = await browser.$('._3ziZ6');
+  const premium = await browser.$('._1Ej39');
+  await expect(browser).toHaveTitle('Reason security antivirus: free antivirus protection for your computer', { containing: true });
+  await forHomeBtn.click();
+  await list.waitForExist();
+  await expect(premium).toHaveText('Reason Premium', { containing: true });
+});
+
 })
-
-test('synchronous WebdriverIO test', () => sync(() => {
-  browser.url('https://webdriver.io')
-  expect(browser.getTitle()).toContain('WebdriverIO')
-
-  // @ts-ignore
-  browser.$('#search_input_react').click()
-  browser.keys('click{enter}{ctrl} test test')
-  // @ts-ignore
-  browser.$('.aa-suggestions').waitForExist()
-}))
